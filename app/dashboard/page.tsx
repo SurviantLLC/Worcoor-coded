@@ -86,6 +86,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
         <PageTitle title="Dashboard" description="Welcome to your Workforce & Inventory Management System" />
+        {/* Logo only displays on the dashboard page (this is already /dashboard) */}
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/H_Logo%403x-kbxa5EEVooqXmEnSTBwybFTmBd9ITD.png"
           alt="WC WorCoor Logo"

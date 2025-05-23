@@ -29,7 +29,7 @@ import {
   getAllUnits
 } from "@/components/ui/table"
 import { Textarea } from "@/components/ui/textarea"
-import { useTaskContext } from "@/contexts/task-context"
+import { useTaskContext, type Task } from "@/contexts/task-context"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { CheckCircle2 } from "lucide-react"
 import { PageHeader } from "@/components/dashboard/page-header"
@@ -42,10 +42,10 @@ export default function TaskRepositoryPage() {
   const taskSkills = getAllTaskSkills()
   const units = getAllUnits()
 
-  // Add some sample tasks to display in the table
+  // Add some sample tasks to display in the table - using unique IDs to avoid conflicts
   const sampleTasks = [
     {
-      id: "T-001",
+      id: "T-101",
       name: "Audit Production Line A",
       createdBy: "John Doe",
       createdOn: "05/01/2023",
@@ -55,7 +55,7 @@ export default function TaskRepositoryPage() {
       description: "Conduct comprehensive audit of production line A"
     },
     {
-      id: "T-002",
+      id: "T-102",
       name: "Cut Sheet Metal Components",
       createdBy: "Jane Smith",
       createdOn: "05/05/2023",
@@ -65,7 +65,7 @@ export default function TaskRepositoryPage() {
       description: "Cut metal components according to specifications"
     },
     {
-      id: "T-003",
+      id: "T-103",
       name: "Package Finished Products",
       createdBy: "Mike Johnson",
       createdOn: "05/10/2023",
@@ -75,7 +75,7 @@ export default function TaskRepositoryPage() {
       description: "Package finished products for shipment"
     },
     {
-      id: "T-004",
+      id: "T-104",
       name: "Quality Check Assembly Line B",
       createdBy: "Sarah Williams",
       createdOn: "05/15/2023",
@@ -85,7 +85,7 @@ export default function TaskRepositoryPage() {
       description: "Perform quality checks on assembly line B"
     },
     {
-      id: "T-005",
+      id: "T-105",
       name: "Maintenance of Machine 3",
       createdBy: "Robert Brown",
       createdOn: "05/20/2023",
@@ -104,7 +104,7 @@ export default function TaskRepositoryPage() {
   const [skillFilter, setSkillFilter] = useState("All Skill Types")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-  const [selectedTask, setSelectedTask] = useState(null)
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [editedTask, setEditedTask] = useState({
     id: "",
     name: "",
@@ -205,17 +205,17 @@ export default function TaskRepositoryPage() {
   }
 
   // Handle double-click on a task row
-  const handleTaskRowDoubleClick = (task) => {
+  const handleTaskRowDoubleClick = (task: Task) => {
     setSelectedTask(task)
     setEditedTask({
-      id: task.id,
+      id: task.id || "",
       name: task.name,
       type: task.type,
       skill: task.skill,
       unit: task.unit,
       description: task.description || "",
-      createdBy: task.createdBy,
-      createdOn: task.createdOn,
+      createdBy: task.createdBy || "",
+      createdOn: task.createdOn || "",
     })
     setIsEditDialogOpen(true)
   }

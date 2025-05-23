@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import {
   BarChart3,
@@ -22,7 +23,6 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Logo } from "@/components/logo"
 
 type SidebarProps = {
   isOpen: boolean
@@ -203,9 +203,29 @@ export function DashboardSidebar({ isOpen, toggle }: SidebarProps) {
       )}
     >
       <div className="flex items-center justify-between p-4 border-b border-gray-800 h-16">
-        <div className={cn("flex items-center gap-2", !isOpen && "justify-center")}>
-          <Logo size={isOpen ? 36 : 30} />
-          {isOpen && <span className="font-bold text-white">Worcoor</span>}
+        <div className={cn("flex items-center", !isOpen && "justify-center")}>
+          {isOpen ? (
+            <div className="relative h-10 w-44">
+              <Image 
+                src="/logo_full.svg" 
+                alt="Worcoor Logo"
+                fill
+                style={{ objectFit: "contain" }}
+                priority
+              />
+            </div>
+          ) : (
+            <div className="relative h-8 w-8">
+              {/* Extract just the icon from the full logo for the collapsed sidebar */}
+              <Image 
+                src="/logo_full.svg"
+                alt="Worcoor Icon"
+                fill
+                style={{ objectFit: "contain" }}
+                priority
+              />
+            </div>
+          )}
         </div>
         <Button
           variant="ghost"
